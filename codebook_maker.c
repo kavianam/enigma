@@ -5,7 +5,7 @@ void shuffle(int*, size_t);
 
 int main() {
 	char const *alpha = "abcdefghijklmnopqrstuvwxyz";
-	printf("First: %c\n", alpha[3]);
+	//printf("First: %c\n", alpha[3]);
 
 	int r1[26];
 	int r2[26];
@@ -29,22 +29,22 @@ int main() {
 	fptr = fopen("codebook.txt", "w");
 
 	for(int i=0; i<26; i++){
-		printf("%d ", r1[i]);
+		//printf("%d ", r1[i]);
 		fprintf(fptr, "%d ", r1[i]);
 	}
-	printf("\n");
+	//printf("\n");
 	fprintf(fptr, "\n");
 	for(int i=0; i<26; i++){
-		printf("%d ", r2[i]);
+		//printf("%d ", r2[i]);
 		fprintf(fptr, "%d ", r2[i]);
 	}
-	printf("\n");
+	//printf("\n");
 	fprintf(fptr, "\n");
 	for(int i=0; i<26; i++){
-		printf("%d ", r3[i]);
+		//printf("%d ", r3[i]);
 		fprintf(fptr, "%d ", r3[i]);
 	}
-	printf("\n");
+	//printf("\n");
 	fprintf(fptr, "\n");
 
 	fclose(fptr);
