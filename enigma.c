@@ -96,32 +96,21 @@ int lookup(int *r, int input) {
 }
 
 void rotate_rotors(int count){
-	if(count%26 == 0){
+	int last = r1[25];
+	for(int i=24; i>=0; i--)
+		r1[i+1] = r1[i];
+	r1[0] = last;
+	
+	if(count % 26 == 0){
 		int last = r2[25];
 		for(int i=24; i>=0; i--)
 			r2[i+1] = r2[i];
 		r2[0] = last;
-		
-		for(int i=0; i<26; i++) {
-			printf("%d ", r2[i]);
-		}
-		printf("\n");
-	} else if(count%676 == 0) {
+	}
+	if(count % (26*26) == 0) {
 		int last = r3[25];
 		for(int i=24; i>=0; i--)
 			r3[i+1] = r3[i];
 		r3[0] = last;
-	} else{
-		int last = r1[25];
-		for(int i=24; i>=0; i--)
-			r1[i+1] = r1[i];
-		r1[0] = last;
-		/*
-		for(int i=0; i<26; i++) {
-			printf("%d ", r1[i]);
-		}
-		printf("\n");
-		*/
-		
 	}
 }
