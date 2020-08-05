@@ -15,8 +15,9 @@ int r3[26];
 int main(){
 	fill_rotors("codebook.txt");
 	char input[256];
-	printf("Enter your inputs: ");
-	scanf("%s", input);
+	//printf("Enter your inputs: ");
+	//scanf("%s", input);
+	fgets(input, 256, stdin);
 
 	char *output = encode(input);
 	printf("Output: %s\n", output); 
@@ -38,7 +39,7 @@ void fill_rotors(char const *path){
 	}
 	fclose(fptr);
 
-	///*	
+	/*	
 	for(int i=0; i<26; i++) {
 		printf("%d ", r1[i]);
 	}
@@ -51,28 +52,31 @@ void fill_rotors(char const *path){
 		printf("%d ", r3[i]);
 	}
 	printf("\n");
-	//*/
+	*/
 
 }
 
 char* encode(char *input) {
-	//char output[strlen(input)];
-	char *output = (char*)malloc(strlen(input));
-	for(size_t i=0; i<strlen(input); i++){
-		int x = find_char(input[i]);
-		int r1_output = r1[x];
-		int r2_output = r2[r1_output];
-		int r3_output = r3[r2_output];
-		int reflector = 25 - r3_output;
+	// fgets put \n at the end of the input so I don't calculate it
+	char *output = (char*)malloc(strlen(input)-1);
+	for(size_t i=0; i<strlen(input)-1; i++){
+		if(find_char(input[i]) == -1){
+			output[i] = input[i];
+		} else {
+			int c = find_char(input[i]);
+			int r1_output = r1[c];
+			int r2_output = r2[r1_output];
+			int r3_output = r3[r2_output];
+			int reflector = 25 - r3_output;
 
-		int r3_input = lookup(r3, reflector);
-		int r2_input = lookup(r2, r3_input);
-		int r1_input = lookup(r1, r2_input);
+			int r3_input = lookup(r3, reflector);
+			int r2_input = lookup(r2, r3_input);
+			int r1_input = lookup(r1, r2_input);
 
-		char const *alpha = "abcdefghijklmnopqrstuvwxyz"; 
-		output[i] = alpha[r1_input];
-
-		rotate_rotors(i+1);
+			char const *alpha = "abcdefghijklmnopqrstuvwxyz"; 
+			output[i] = alpha[r1_input];
+			rotate_rotors(i+1);
+		}
 	}
 	return output;
 }
@@ -83,8 +87,7 @@ int find_char(char input){
 		if(alpha[i] == input)
 			return i;	
 	}
-	printf("Enter a valid character\n");
-	exit(1);
+	return -1;	
 }
 
 int lookup(int *r, int input) {
