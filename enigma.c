@@ -60,11 +60,17 @@ char* encode(char *input) {
 	// fgets put \n at the end of the input so I don't calculate it
 	char *output = (char*)malloc(strlen(input)-1);
 	for(size_t i=0; i<strlen(input)-1; i++){
-		if(find_char(input[i]) == -1){
+		char c = input[i];
+
+		// convert uppercase to lowercase
+		if(c >= 'A' && c <= 'Z')
+			c = c + 32;
+
+		if(find_char(c) == -1){
 			output[i] = input[i];
 		} else {
-			int c = find_char(input[i]);
-			int r1_output = r1[c];
+			int j = find_char(c);
+			int r1_output = r1[j];
 			int r2_output = r2[r1_output];
 			int r3_output = r3[r2_output];
 			int reflector = 25 - r3_output;
