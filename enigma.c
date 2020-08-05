@@ -56,7 +56,7 @@ void fill_rotor(char const *path){
 
 char* encode(char *input) {
 	//char output[strlen(input)];
-	char *output = malloc(strlen(input));
+	char *output = (char*)malloc(strlen(input));
 	for(size_t i=0; i<strlen(input); i++){
 	
 		int x = find_char(input[i]);
@@ -79,7 +79,7 @@ char* encode(char *input) {
 		/*
 		int r1_input = find_char(input);
 		int r2_input = lookup(r1, r1_input);
-		int r3_input = lookup(r2, r2_input); 
+		int r3_input = lookup(r2, r2_input);
 		int rotater_input = lookup(r3, r3_input);
 		int rotater_output = 25 - rotater_input;
 
@@ -97,13 +97,13 @@ char* encode(char *input) {
 }
 int find_char(char input){
 	char const *alpha = "abcdefghijklmnopqrstuvwxyz";
-	int i = -1;
 
-	for(int j=0; j<26; j++){
-		if(alpha[j] == input)
-			i = j;
+	for(int i=0; i<26; i++){
+		if(alpha[i] == input)
+			return i;	
 	}
-	return i;	
+	printf("Enter a valid character\n");
+	exit(1);
 }
 
 int lookup(int *r, int input) {
